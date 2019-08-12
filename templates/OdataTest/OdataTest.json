@@ -1,0 +1,407 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory Name"
+		},
+		"OData1": {
+			"type": "string"
+		},
+		"AzureDataLakeStorage1": {
+			"type": "string"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/OdataTest')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "NAV2016Test",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "RelationalSource",
+								"query": "$format=json&$filter=Posting_Date ge datetime'2016-12-31' and Posting_Date lt datetime'2017-01-01'&company=CRONUS Finland Oy"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "ODataTest",
+								"type": "DatasetReference"
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DataLakeCsv",
+								"type": "DatasetReference"
+							}
+						]
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ODataTest')]",
+				"[concat(variables('factoryId'), '/datasets/DataLakeCsv')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ODataTest')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "[parameters('OData1')]",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "ODataResource",
+				"structure": [
+					{
+						"name": "Entry_No",
+						"type": "Int32"
+					},
+					{
+						"name": "G_L_Account_No",
+						"type": "String"
+					},
+					{
+						"name": "Posting_Date",
+						"type": "DateTime"
+					},
+					{
+						"name": "Document_Type",
+						"type": "String"
+					},
+					{
+						"name": "Document_No",
+						"type": "String"
+					},
+					{
+						"name": "Description",
+						"type": "String"
+					},
+					{
+						"name": "Bal_Account_No",
+						"type": "String"
+					},
+					{
+						"name": "Amount",
+						"type": "Decimal"
+					},
+					{
+						"name": "User_ID",
+						"type": "String"
+					},
+					{
+						"name": "Source_Code",
+						"type": "String"
+					},
+					{
+						"name": "System_Created_Entry",
+						"type": "Boolean"
+					},
+					{
+						"name": "Prior_Year_Entry",
+						"type": "Boolean"
+					},
+					{
+						"name": "Job_No",
+						"type": "String"
+					},
+					{
+						"name": "Quantity",
+						"type": "Decimal"
+					},
+					{
+						"name": "VAT_Amount",
+						"type": "Decimal"
+					},
+					{
+						"name": "Business_Unit_Code",
+						"type": "String"
+					},
+					{
+						"name": "Journal_Batch_Name",
+						"type": "String"
+					},
+					{
+						"name": "Reason_Code",
+						"type": "String"
+					},
+					{
+						"name": "Gen_Posting_Type",
+						"type": "String"
+					},
+					{
+						"name": "Gen_Bus_Posting_Group",
+						"type": "String"
+					},
+					{
+						"name": "Gen_Prod_Posting_Group",
+						"type": "String"
+					},
+					{
+						"name": "Bal_Account_Type",
+						"type": "String"
+					},
+					{
+						"name": "Transaction_No",
+						"type": "Int32"
+					},
+					{
+						"name": "Debit_Amount",
+						"type": "Decimal"
+					},
+					{
+						"name": "Credit_Amount",
+						"type": "Decimal"
+					},
+					{
+						"name": "Document_Date",
+						"type": "DateTime"
+					},
+					{
+						"name": "External_Document_No",
+						"type": "String"
+					},
+					{
+						"name": "Source_Type",
+						"type": "String"
+					},
+					{
+						"name": "Source_No",
+						"type": "String"
+					},
+					{
+						"name": "No_Series",
+						"type": "String"
+					},
+					{
+						"name": "Tax_Area_Code",
+						"type": "String"
+					},
+					{
+						"name": "Tax_Liable",
+						"type": "Boolean"
+					},
+					{
+						"name": "Tax_Group_Code",
+						"type": "String"
+					},
+					{
+						"name": "Use_Tax",
+						"type": "Boolean"
+					},
+					{
+						"name": "VAT_Bus_Posting_Group",
+						"type": "String"
+					},
+					{
+						"name": "VAT_Prod_Posting_Group",
+						"type": "String"
+					},
+					{
+						"name": "Additional_Currency_Amount",
+						"type": "Decimal"
+					},
+					{
+						"name": "Add_Currency_Debit_Amount",
+						"type": "Decimal"
+					},
+					{
+						"name": "Add_Currency_Credit_Amount",
+						"type": "Decimal"
+					},
+					{
+						"name": "Close_Income_Statement_Dim_ID",
+						"type": "Int32"
+					},
+					{
+						"name": "IC_Partner_Code",
+						"type": "String"
+					},
+					{
+						"name": "Reversed",
+						"type": "Boolean"
+					},
+					{
+						"name": "Reversed_by_Entry_No",
+						"type": "Int32"
+					},
+					{
+						"name": "Reversed_Entry_No",
+						"type": "Int32"
+					},
+					{
+						"name": "G_L_Account_Name",
+						"type": "String"
+					},
+					{
+						"name": "Dimension_Set_ID",
+						"type": "Int32"
+					},
+					{
+						"name": "Prod_Order_No",
+						"type": "String"
+					},
+					{
+						"name": "FA_Entry_Type",
+						"type": "String"
+					},
+					{
+						"name": "FA_Entry_No",
+						"type": "Int32"
+					},
+					{
+						"name": "Global_Dimension_1_Code",
+						"type": "String"
+					},
+					{
+						"name": "Global_Dimension_2_Code",
+						"type": "String"
+					},
+					{
+						"name": "Shortcut_Dimension_3_Code",
+						"type": "String"
+					},
+					{
+						"name": "Shortcut_Dimension_4_Code",
+						"type": "String"
+					},
+					{
+						"name": "Shortcut_Dimension_5_Code",
+						"type": "String"
+					},
+					{
+						"name": "Shortcut_Dimension_6_Code",
+						"type": "String"
+					},
+					{
+						"name": "Shortcut_Dimension_7_Code",
+						"type": "String"
+					},
+					{
+						"name": "Shortcut_Dimension_8_Code",
+						"type": "String"
+					},
+					{
+						"name": "Shortcut_Dimension_9_Code",
+						"type": "String"
+					},
+					{
+						"name": "Shortcut_Dimension_10_Code",
+						"type": "String"
+					},
+					{
+						"name": "Shortcut_Dimension_11_Code",
+						"type": "String"
+					},
+					{
+						"name": "Shortcut_Dimension_12_Code",
+						"type": "String"
+					},
+					{
+						"name": "Shortcut_Dimension_13_Code",
+						"type": "String"
+					},
+					{
+						"name": "Shortcut_Dimension_14_Code",
+						"type": "String"
+					},
+					{
+						"name": "Shortcut_Dimension_15_Code",
+						"type": "String"
+					},
+					{
+						"name": "Shortcut_Dimension_16_Code",
+						"type": "String"
+					},
+					{
+						"name": "Shortcut_Dimension_17_Code",
+						"type": "String"
+					},
+					{
+						"name": "Shortcut_Dimension_18_Code",
+						"type": "String"
+					},
+					{
+						"name": "Shortcut_Dimension_19_Code",
+						"type": "String"
+					},
+					{
+						"name": "Shortcut_Dimension_20_Code",
+						"type": "String"
+					},
+					{
+						"name": "DateTime",
+						"type": "DateTime"
+					},
+					{
+						"name": "ETag",
+						"type": "String"
+					}
+				],
+				"typeProperties": {
+					"path": "NavGLEntry"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DataLakeCsv')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "[parameters('AzureDataLakeStorage1')]",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "testdir",
+						"fileSystem": "financialdataproto1"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		}
+	]
+}
