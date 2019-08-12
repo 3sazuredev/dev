@@ -1,0 +1,325 @@
+{
+	"name": "OracleTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"structure": [
+			{
+				"name": "LOGINFO",
+				"type": "String"
+			},
+			{
+				"name": "COUNTRY_",
+				"type": "Decimal"
+			},
+			{
+				"name": "REALNAME",
+				"type": "String"
+			},
+			{
+				"name": "ACCOUNTPERIODSTART",
+				"type": "DateTime"
+			},
+			{
+				"name": "IASACTIVATED",
+				"type": "Decimal"
+			},
+			{
+				"name": "COMPANY",
+				"type": "Decimal"
+			},
+			{
+				"name": "PARTNER",
+				"type": "Decimal"
+			},
+			{
+				"name": "FINANCIER",
+				"type": "Decimal"
+			},
+			{
+				"name": "GROUP_",
+				"type": "Decimal"
+			},
+			{
+				"name": "CREATED",
+				"type": "DateTime"
+			},
+			{
+				"name": "UPDATED",
+				"type": "DateTime"
+			},
+			{
+				"name": "DELETED",
+				"type": "Decimal"
+			},
+			{
+				"name": "LEVEL_",
+				"type": "Decimal"
+			},
+			{
+				"name": "OWNDEVICESENABLED",
+				"type": "Decimal"
+			},
+			{
+				"name": "ESTIMATEDYEARPURCHASES",
+				"type": "Decimal"
+			},
+			{
+				"name": "PREERASURE",
+				"type": "Decimal"
+			},
+			{
+				"name": "DEALINGLANGUAGE_",
+				"type": "String"
+			},
+			{
+				"name": "COSTCENTREINUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "COSTCENTRE2INUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "LOCATIONINUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "PROJECTINUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "PRODUCTGROUPINUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "OTHERINFOINUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "ADDRESSESINUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "PICKUPLOCATIONSINUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "EXTRAINFO0INUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "EXTRAINFO1INUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "EXTRAINFO2INUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "EXTRAINFO3INUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "EXTRAINFO4INUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "EXTRAINFO5INUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "EXTRATEXT1INUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "EXTRATEXT2INUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "EXTRATEXT3INUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "EXTRATEXT4INUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "EXTRATEXT5INUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "EXTRANUMBER1INUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "EXTRANUMBER2INUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "EXTRANUMBER3INUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "EXTRANUMBER4INUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "EXTRANUMBER5INUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "ENTERINGSPECIFICINFO",
+				"type": "Decimal"
+			},
+			{
+				"name": "STICKERENABLED",
+				"type": "Decimal"
+			},
+			{
+				"name": "PARTNERENABLED",
+				"type": "Decimal"
+			},
+			{
+				"name": "BUYER",
+				"type": "Decimal"
+			},
+			{
+				"name": "EXPIREDATE",
+				"type": "DateTime"
+			},
+			{
+				"name": "PAYMENTTERM",
+				"type": "Decimal"
+			},
+			{
+				"name": "BLANCCOREPORT",
+				"type": "Decimal"
+			},
+			{
+				"name": "NOVATONINVOICES",
+				"type": "Decimal"
+			},
+			{
+				"name": "ORDERER",
+				"type": "Decimal"
+			},
+			{
+				"name": "BUYERCREDITLIMIT",
+				"type": "Decimal"
+			},
+			{
+				"name": "BUYERCURRENCY_",
+				"type": "Decimal"
+			},
+			{
+				"name": "COPARTNER",
+				"type": "Decimal"
+			},
+			{
+				"name": "BUYBACKSELLER",
+				"type": "Decimal"
+			},
+			{
+				"name": "SERIALNUMBERINUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "LEASEMGMTENABLED",
+				"type": "Decimal"
+			},
+			{
+				"name": "SUPPLIERTYPE_",
+				"type": "Decimal"
+			},
+			{
+				"name": "SERVICEINVOICINGENABLED",
+				"type": "Decimal"
+			},
+			{
+				"name": "USESERVICEFEEINSTEADOFDTR",
+				"type": "Decimal"
+			},
+			{
+				"name": "SECONDARYINFOSENABLED",
+				"type": "Decimal"
+			},
+			{
+				"name": "EFECTEINTEGRATIONINUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "ASSETINTEGRATIONINUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "EOLCUSTOMERLEVEL_",
+				"type": "Decimal"
+			},
+			{
+				"name": "RECYCLINGPARTNER",
+				"type": "Decimal"
+			},
+			{
+				"name": "NAVCOMPANY_",
+				"type": "Decimal"
+			},
+			{
+				"name": "AUTOCREATEEXTENSIONS",
+				"type": "Decimal"
+			},
+			{
+				"name": "EXTRADATE1INUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "EXTRADATE2INUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "EXTRADATE3INUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "EXTRADATE4INUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "EXTRADATE5INUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "PORTALINUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "ACCEPTONLY_AOD",
+				"type": "Decimal"
+			},
+			{
+				"name": "EOLACTIVE",
+				"type": "Decimal"
+			},
+			{
+				"name": "ADFSLOGININUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "INSURANCESINUSE",
+				"type": "Decimal"
+			},
+			{
+				"name": "UUID",
+				"type": "String"
+			}
+		],
+		"typeProperties": {
+			"tableName": "\"DATAPLATFORMERPTRANSFERS\".\"NS4COMPANY\""
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

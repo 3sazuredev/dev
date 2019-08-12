@@ -1,0 +1,147 @@
+{
+	"name": "NAVVendorLedgerEntry",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEachCompany",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Set ToDateTime",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Set FromDateTime",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.Company",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "CopyDataNAV",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "RelationalSource",
+									"query": {
+										"value": "@concat('$filter=DateTime ge datetime''',formatDateTime(variables('FromDateTime')),''' and DateTime lt datetime''',formatDateTime(variables('ToDateTime')),'''&company=',item(),'&$select=',variables('Columns'))",
+										"type": "Expression"
+									}
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".csv"
+									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "ODataNAVVendorLedgerEntry",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DataLakeStoreRaw",
+									"type": "DatasetReference"
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"name": "Set ToDateTime",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "ToDateTime",
+					"value": {
+						"value": "@if(empty(pipeline().parameters.ToDateTime),utcnow(),pipeline().parameters.ToDateTime)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set FromDateTime",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "FromDateTime",
+					"value": {
+						"value": "@if(empty(pipeline().parameters.FromDateTime),addMinutes(utcnow(),int(variables('OffSetMinutes'))),pipeline().parameters.FromDateTime)",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"Company": {
+				"type": "array",
+				"defaultValue": [
+					"3StepIT_TEST",
+					"CRONUS Finland Oy"
+				]
+			},
+			"ToDateTime": {
+				"type": "string"
+			},
+			"FromDateTime": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"ToDateTime": {
+				"type": "String"
+			},
+			"FromDateTime": {
+				"type": "String"
+			},
+			"OffSetMinutes": {
+				"type": "String",
+				"defaultValue": "-70"
+			},
+			"Entity": {
+				"type": "String",
+				"defaultValue": "VendorLedgerEntry"
+			},
+			"Columns": {
+				"type": "String",
+				"defaultValue": "Entry_No,Vendor_No,Posting_Date,Document_Type,Document_No,Description,Currency_Code,Amount,Remaining_Amount,Original_Amt_LCY,Remaining_Amt_LCY,Amount_LCY,Purchase_LCY,Inv_Discount_LCY,Buy_from_Vendor_No,Vendor_Posting_Group,Global_Dimension_1_Code,Global_Dimension_2_Code,Purchaser_Code,User_ID,Source_Code,On_Hold,Applies_to_Doc_Type,Applies_to_Doc_No,Open,Due_Date,Pmt_Discount_Date,Original_Pmt_Disc_Possible,Pmt_Disc_Rcd_LCY,Positive,Closed_by_Entry_No,Closed_at_Date,Closed_by_Amount,Applies_to_ID,Journal_Batch_Name,Reason_Code,Bal_Account_Type,Bal_Account_No,Transaction_No,Closed_by_Amount_LCY,Debit_Amount,Credit_Amount,Debit_Amount_LCY,Credit_Amount_LCY,Document_Date,External_Document_No,No_Series,Closed_by_Currency_Code,Closed_by_Currency_Amount,Adjusted_Currency_Factor,Original_Currency_Factor,Original_Amount,Remaining_Pmt_Disc_Possible,Pmt_Disc_Tolerance_Date,Max_Payment_Tolerance,Accepted_Payment_Tolerance,Accepted_Pmt_Disc_Tolerance,Pmt_Tolerance_LCY,Amount_to_Apply,IC_Partner_Code,Applying_Entry,Reversed,Reversed_by_Entry_No,Reversed_Entry_No,Prepayment,Creditor_No,Payment_Reference,Payment_Method_Code,Applies_to_Ext_Doc_No,Recipient_Bank_Account,Message_to_Recipient,Exported_to_Payment_File,Dimension_Set_ID,Customer_Invoice_No,Trans_Type,Message_Type,Invoice_Message,Invoice_Message_2,Payment_Date,DateTime,ETag"
+			}
+		},
+		"folder": {
+			"name": "NAV Extract"
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

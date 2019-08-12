@@ -1,0 +1,173 @@
+{
+	"name": "NAV Daily Extract Wrapper",
+	"properties": {
+		"description": "Settings\nParam-WrapperOffSetMinutes: Use as offset for all pipeline runs in ODATA query filter. ToDatetime = utcnow() and FromDateTime = utcnow()-WrapperOffSetMinutes. Default value is -1500 minutes = -25 hours\n\nParam-WrapperCompanies: Use as company filter for all pipeline runs ODATA queries. ",
+		"activities": [
+			{
+				"name": "NAV Customer",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "NAVCustomer",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"Company": {
+							"value": "@pipeline().parameters.WrapperCompanies",
+							"type": "Expression"
+						},
+						"ToDateTime": {
+							"value": "@utcnow()",
+							"type": "Expression"
+						},
+						"FromDateTime": {
+							"value": "@addminutes(utcnow(),pipeline().parameters.WrapperOffSetMinutes)",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "NAV Vendor",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "NAV Customer",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "NAVVendor",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"Company": {
+							"value": "@pipeline().parameters.WrapperCompanies",
+							"type": "Expression"
+						},
+						"ToDateTime": {
+							"value": "@utcnow()",
+							"type": "Expression"
+						},
+						"FromDateTime": {
+							"value": "@addminutes(utcnow(),pipeline().parameters.WrapperOffSetMinutes)",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "NAV GL Setup",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "NAV Vendor",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "NAVGeneralLedgerSetup",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"Company": {
+							"value": "@pipeline().parameters.WrapperCompanies",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "NAV Location",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "NAV GL Setup",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "NAVLocation",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"Company": {
+							"value": "@pipeline().parameters.WrapperCompanies",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "NAV Currency Exchange Rate",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "NAV Location",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "NAVCurrencyExchangeRate",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"Company": {
+							"value": "@pipeline().parameters.WrapperCompanies",
+							"type": "Expression"
+						},
+						"ToDateTime": {
+							"value": "@utcnow()",
+							"type": "Expression"
+						},
+						"FromDateTime": {
+							"value": "@addminutes(utcnow(),pipeline().parameters.WrapperOffSetMinutes)",
+							"type": "Expression"
+						}
+					}
+				}
+			}
+		],
+		"parameters": {
+			"WrapperOffSetMinutes": {
+				"type": "int",
+				"defaultValue": -1500
+			},
+			"WrapperCompanies": {
+				"type": "array",
+				"defaultValue": [
+					"3StepIT_TEST",
+					"CRONUS Finland Oy"
+				]
+			}
+		},
+		"folder": {
+			"name": "NAV Extract"
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

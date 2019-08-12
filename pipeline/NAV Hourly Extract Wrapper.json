@@ -1,0 +1,291 @@
+{
+	"name": "NAV Hourly Extract Wrapper",
+	"properties": {
+		"description": "Settings\nParam-WrapperOffSetMinutes: Use as offset for all pipeline runs in ODATA query filter. ToDatetime = utcnow() and FromDateTime = utcnow()-WrapperOffSetMinutes. Default value is -70 minutes\n\nParam-WrapperCompanies: Use as company filter for all pipeline runs ODATA queries. ",
+		"activities": [
+			{
+				"name": "NAV Purch Inv Header",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "NAVPurchaseInvoiceHeader",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"Company": {
+							"value": "@pipeline().parameters.WrapperCompanies",
+							"type": "Expression"
+						},
+						"ToDateTime": {
+							"value": "@utcnow()",
+							"type": "Expression"
+						},
+						"FromDateTime": {
+							"value": "@addminutes(utcnow(),pipeline().parameters.WrapperOffSetMinutes)",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "NAV Purch Inv Line",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "NAV Purch Inv Header",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "NAVPurchaseInvoiceLine",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"Company": {
+							"value": "@pipeline().parameters.WrapperCompanies",
+							"type": "Expression"
+						},
+						"ToDateTime": {
+							"value": "@utcnow()",
+							"type": "Expression"
+						},
+						"FromDateTime": {
+							"value": "@addminutes(utcnow(),pipeline().parameters.WrapperOffSetMinutes)",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "NAV Sales Inv Header",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "NAV Purch Inv Line",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "NAVSalesInvoiceHeader",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"Company": {
+							"value": "@pipeline().parameters.WrapperCompanies",
+							"type": "Expression"
+						},
+						"ToDateTime": {
+							"value": "@utcnow()",
+							"type": "Expression"
+						},
+						"FromDateTime": {
+							"value": "@addminutes(utcnow(),pipeline().parameters.WrapperOffSetMinutes)",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "NAV Sales Inv Line",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "NAV Sales Inv Header",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "NAVSalesInvoiceLine",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"Company": {
+							"value": "@pipeline().parameters.WrapperCompanies",
+							"type": "Expression"
+						},
+						"ToDateTime": {
+							"value": "@utcnow()",
+							"type": "Expression"
+						},
+						"FromDateTime": {
+							"value": "@addminutes(utcnow(),pipeline().parameters.WrapperOffSetMinutes)",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "NAV Value Entry",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "NAV Sales Inv Line",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "NAVValueEntry",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"Company": {
+							"value": "@pipeline().parameters.WrapperCompanies",
+							"type": "Expression"
+						},
+						"ToDateTime": {
+							"value": "@utcnow()",
+							"type": "Expression"
+						},
+						"FromDateTime": {
+							"value": "@addminutes(utcnow(),pipeline().parameters.WrapperOffSetMinutes)",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "NAV Vendor Ledger Entry",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "NAV Value Entry",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "NAVVendorLedgerEntry",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"Company": {
+							"value": "@pipeline().parameters.WrapperCompanies",
+							"type": "Expression"
+						},
+						"ToDateTime": {
+							"value": "@utcnow()",
+							"type": "Expression"
+						},
+						"FromDateTime": {
+							"value": "@addminutes(utcnow(),pipeline().parameters.WrapperOffSetMinutes)",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "NAV Customer Ledger Entry",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "NAV Vendor Ledger Entry",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "NAVCustomerLedgerEntry",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"Company": {
+							"value": "@pipeline().parameters.WrapperCompanies",
+							"type": "Expression"
+						},
+						"ToDateTime": {
+							"value": "@utcnow()",
+							"type": "Expression"
+						},
+						"FromDateTime": {
+							"value": "@addminutes(utcnow(),pipeline().parameters.WrapperOffSetMinutes)",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "NAV General Ledger Entry",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "NAV Customer Ledger Entry",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "NAVGeneralLedgerEntry",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"Company": {
+							"value": "@pipeline().parameters.WrapperCompanies",
+							"type": "Expression"
+						},
+						"ToDateTime": {
+							"value": "@utcnow()",
+							"type": "Expression"
+						},
+						"FromDateTime": {
+							"value": "@addminutes(utcnow(),pipeline().parameters.WrapperOffSetMinutes)",
+							"type": "Expression"
+						}
+					}
+				}
+			}
+		],
+		"parameters": {
+			"WrapperOffSetMinutes": {
+				"type": "int",
+				"defaultValue": -70
+			},
+			"WrapperCompanies": {
+				"type": "array",
+				"defaultValue": [
+					"3StepIT_TEST",
+					"CRONUS Finland Oy"
+				]
+			}
+		},
+		"folder": {
+			"name": "NAV Extract"
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

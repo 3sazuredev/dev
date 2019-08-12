@@ -1,0 +1,21 @@
+{
+	"name": "DataFactoryStagingBLOBStorage",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobStorage",
+		"typeProperties": {
+			"serviceEndpoint": "https://datafactorytaging.blob.core.windows.net",
+			"tenant": "b5337b00-d6ac-48ac-aa80-69815a539c26",
+			"servicePrincipalId": "ad4d3478-ee6a-4aa0-b979-6621724da02c",
+			"servicePrincipalKey": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "AzureKeyVaultDev",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "datafactorytagingstorageServicePrincipal"
+			}
+		}
+	}
+}

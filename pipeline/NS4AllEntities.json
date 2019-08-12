@@ -1,0 +1,149 @@
+{
+	"name": "NS4AllEntities",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEachEntity",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Set ToDateTime",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Set FromDateTime",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.Entity",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "CopyDataERP",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "OracleSource",
+									"oracleReaderQuery": {
+										"value": "@concat('SELECT * FROM dataplatformerptransfers.',item(),' WHERE updated >= to_date(''',formatDateTime(variables('FromDateTime'),'yyyy-MM-dd hh:mm:ss'),' '', ''yyyy-MM-dd HH24:MI:SS'') and updated < to_date(''',formatDateTime(variables('ToDateTime'),'yyyy-MM-dd hh:mm:ss'),' '', ''yyyy-MM-dd HH24:MI:SS'')') ",
+										"type": "Expression"
+									},
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".csv"
+									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "NS4Test",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DataLakeStoreRawERP",
+									"type": "DatasetReference"
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"name": "Set ToDateTime",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "ToDateTime",
+					"value": {
+						"value": "@if(equals(pipeline().parameters.ToDateTime, '1900-01-01'),utcnow(),pipeline().parameters.ToDateTime)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set FromDateTime",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "FromDateTime",
+					"value": {
+						"value": "@if(equals(pipeline().parameters.FromDateTime, '1900-01-01'),addMinutes(utcnow(),int(variables('OffSetMinutes'))),pipeline().parameters.FromDateTime)",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"Entity": {
+				"type": "array",
+				"defaultValue": [
+					"NS4COMPANY",
+					"NS4BUSINESSUNIT",
+					"NS4CONTRACT",
+					"NS4DEVICE",
+					"NS4TRADEAGREEMENT"
+				]
+			},
+			"ToDateTime": {
+				"type": "string",
+				"defaultValue": "1900-01-01"
+			},
+			"FromDateTime": {
+				"type": "string",
+				"defaultValue": "1900-01-01"
+			}
+		},
+		"variables": {
+			"ToDateTime": {
+				"type": "String"
+			},
+			"FromDateTime": {
+				"type": "String"
+			},
+			"OffSetMinutes": {
+				"type": "String",
+				"defaultValue": "-1500"
+			},
+			"Columns": {
+				"type": "String",
+				"defaultValue": "No,Name,Search_Name,Name_2,Address,Address_2,City,Contact,Phone_No,Telex_No,Document_Sending_Profile,Our_Account_No,Territory_Code,Global_Dimension_1_Code,Global_Dimension_2_Code,Chain_Name,Budgeted_Amount,Credit_Limit_LCY,Customer_Posting_Group,Currency_Code,Customer_Price_Group,Language_Code,Statistics_Group,Payment_Terms_Code,Fin_Charge_Terms_Code,Salesperson_Code,Shipment_Method_Code,Shipping_Agent_Code,Place_of_Export,Invoice_Disc_Code,Customer_Disc_Group,Country_Region_Code,Collection_Method,Amount,Blocked,Invoice_Copies,Last_Statement_No,Print_Statements,Bill_to_Customer_No,Priority,Payment_Method_Code,Last_Date_Modified,Application_Method,Prices_Including_VAT,Location_Code,Fax_No,Telex_Answer_Back,VAT_Registration_No,Combine_Shipments,Gen_Bus_Posting_Group,GLN,Post_Code,County,E_Mail,Home_Page,Reminder_Terms_Code,No_Series,Tax_Area_Code,Tax_Liable,VAT_Bus_Posting_Group,Reserve,Block_Payment_Tolerance,IC_Partner_Code,Prepayment_Percent,Partner_Type,Preferred_Bank_Account,Cash_Flow_Payment_Terms_Code,Primary_Contact_No,Responsibility_Center,Shipping_Advice,Shipping_Time,Shipping_Agent_Service_Code,Service_Zone_Code,Allow_Line_Disc,Base_Calendar_Code,Copy_Sell_to_Addr_to_Qte_From,Business_Identity_Code,Selection_Code,Phone_No_2,Important_Comment,Concern_Code,Send_Invoices_Via_Itella,Send_Invoices_info_To_NS4,First_Selling_Date,Invoice_Printing_Template,Customer_Type,Send_invoices_Via_Email,Only_one_invoice_for_one_email,EDI_Code,Finvoice_Enabled,Customer_Bank_Account,NS4_Currency_Code,Invoice_Posting_Type,Invoice_Sending_Type,Party_Identifier,Intermediator_Code,DateTime,ETag"
+			}
+		},
+		"folder": {
+			"name": "ERP Extract"
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

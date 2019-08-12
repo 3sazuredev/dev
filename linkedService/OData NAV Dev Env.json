@@ -1,0 +1,25 @@
+{
+	"name": "OData NAV Dev Env",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "OData",
+		"typeProperties": {
+			"url": "http://vampire.3stepit.com:7048/NAV_TEST/OData/",
+			"authenticationType": "Windows",
+			"userName": "NAVSERVICE",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "AzureKeyVaultDev",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "nav2016DevPass"
+			}
+		},
+		"connectVia": {
+			"referenceName": "ReportingDataFactoryIR",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

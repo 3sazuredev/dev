@@ -1,0 +1,7 @@
+{
+	"name": "ReportingDataFactoryIR",
+	"properties": {
+		"type": "SelfHosted",
+		"description": "selfhosted IR"
+	}
+}

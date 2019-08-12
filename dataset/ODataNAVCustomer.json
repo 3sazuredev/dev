@@ -1,0 +1,412 @@
+{
+	"name": "ODataNAVCustomer",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "OData1",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "NAV Extract"
+		},
+		"annotations": [],
+		"type": "ODataResource",
+		"structure": [
+			{
+				"name": "No",
+				"type": "String"
+			},
+			{
+				"name": "Name",
+				"type": "String"
+			},
+			{
+				"name": "Search_Name",
+				"type": "String"
+			},
+			{
+				"name": "Name_2",
+				"type": "String"
+			},
+			{
+				"name": "Address",
+				"type": "String"
+			},
+			{
+				"name": "Address_2",
+				"type": "String"
+			},
+			{
+				"name": "City",
+				"type": "String"
+			},
+			{
+				"name": "Contact",
+				"type": "String"
+			},
+			{
+				"name": "Phone_No",
+				"type": "String"
+			},
+			{
+				"name": "Telex_No",
+				"type": "String"
+			},
+			{
+				"name": "Document_Sending_Profile",
+				"type": "String"
+			},
+			{
+				"name": "Our_Account_No",
+				"type": "String"
+			},
+			{
+				"name": "Territory_Code",
+				"type": "String"
+			},
+			{
+				"name": "Global_Dimension_1_Code",
+				"type": "String"
+			},
+			{
+				"name": "Global_Dimension_2_Code",
+				"type": "String"
+			},
+			{
+				"name": "Chain_Name",
+				"type": "String"
+			},
+			{
+				"name": "Budgeted_Amount",
+				"type": "Decimal"
+			},
+			{
+				"name": "Credit_Limit_LCY",
+				"type": "Decimal"
+			},
+			{
+				"name": "Customer_Posting_Group",
+				"type": "String"
+			},
+			{
+				"name": "Currency_Code",
+				"type": "String"
+			},
+			{
+				"name": "Customer_Price_Group",
+				"type": "String"
+			},
+			{
+				"name": "Language_Code",
+				"type": "String"
+			},
+			{
+				"name": "Statistics_Group",
+				"type": "Int32"
+			},
+			{
+				"name": "Payment_Terms_Code",
+				"type": "String"
+			},
+			{
+				"name": "Fin_Charge_Terms_Code",
+				"type": "String"
+			},
+			{
+				"name": "Salesperson_Code",
+				"type": "String"
+			},
+			{
+				"name": "Shipment_Method_Code",
+				"type": "String"
+			},
+			{
+				"name": "Shipping_Agent_Code",
+				"type": "String"
+			},
+			{
+				"name": "Place_of_Export",
+				"type": "String"
+			},
+			{
+				"name": "Invoice_Disc_Code",
+				"type": "String"
+			},
+			{
+				"name": "Customer_Disc_Group",
+				"type": "String"
+			},
+			{
+				"name": "Country_Region_Code",
+				"type": "String"
+			},
+			{
+				"name": "Collection_Method",
+				"type": "String"
+			},
+			{
+				"name": "Amount",
+				"type": "Decimal"
+			},
+			{
+				"name": "Blocked",
+				"type": "String"
+			},
+			{
+				"name": "Invoice_Copies",
+				"type": "Int32"
+			},
+			{
+				"name": "Last_Statement_No",
+				"type": "Int32"
+			},
+			{
+				"name": "Print_Statements",
+				"type": "Boolean"
+			},
+			{
+				"name": "Bill_to_Customer_No",
+				"type": "String"
+			},
+			{
+				"name": "Priority",
+				"type": "Int32"
+			},
+			{
+				"name": "Payment_Method_Code",
+				"type": "String"
+			},
+			{
+				"name": "Last_Date_Modified",
+				"type": "DateTime"
+			},
+			{
+				"name": "Application_Method",
+				"type": "String"
+			},
+			{
+				"name": "Prices_Including_VAT",
+				"type": "Boolean"
+			},
+			{
+				"name": "Location_Code",
+				"type": "String"
+			},
+			{
+				"name": "Fax_No",
+				"type": "String"
+			},
+			{
+				"name": "Telex_Answer_Back",
+				"type": "String"
+			},
+			{
+				"name": "VAT_Registration_No",
+				"type": "String"
+			},
+			{
+				"name": "Combine_Shipments",
+				"type": "Boolean"
+			},
+			{
+				"name": "Gen_Bus_Posting_Group",
+				"type": "String"
+			},
+			{
+				"name": "GLN",
+				"type": "String"
+			},
+			{
+				"name": "Post_Code",
+				"type": "String"
+			},
+			{
+				"name": "County",
+				"type": "String"
+			},
+			{
+				"name": "E_Mail",
+				"type": "String"
+			},
+			{
+				"name": "Home_Page",
+				"type": "String"
+			},
+			{
+				"name": "Reminder_Terms_Code",
+				"type": "String"
+			},
+			{
+				"name": "No_Series",
+				"type": "String"
+			},
+			{
+				"name": "Tax_Area_Code",
+				"type": "String"
+			},
+			{
+				"name": "Tax_Liable",
+				"type": "Boolean"
+			},
+			{
+				"name": "VAT_Bus_Posting_Group",
+				"type": "String"
+			},
+			{
+				"name": "Reserve",
+				"type": "String"
+			},
+			{
+				"name": "Block_Payment_Tolerance",
+				"type": "Boolean"
+			},
+			{
+				"name": "IC_Partner_Code",
+				"type": "String"
+			},
+			{
+				"name": "Prepayment_Percent",
+				"type": "Decimal"
+			},
+			{
+				"name": "Partner_Type",
+				"type": "String"
+			},
+			{
+				"name": "Preferred_Bank_Account",
+				"type": "String"
+			},
+			{
+				"name": "Cash_Flow_Payment_Terms_Code",
+				"type": "String"
+			},
+			{
+				"name": "Primary_Contact_No",
+				"type": "String"
+			},
+			{
+				"name": "Responsibility_Center",
+				"type": "String"
+			},
+			{
+				"name": "Shipping_Advice",
+				"type": "String"
+			},
+			{
+				"name": "Shipping_Time",
+				"type": "String"
+			},
+			{
+				"name": "Shipping_Agent_Service_Code",
+				"type": "String"
+			},
+			{
+				"name": "Service_Zone_Code",
+				"type": "String"
+			},
+			{
+				"name": "Allow_Line_Disc",
+				"type": "Boolean"
+			},
+			{
+				"name": "Base_Calendar_Code",
+				"type": "String"
+			},
+			{
+				"name": "Copy_Sell_to_Addr_to_Qte_From",
+				"type": "String"
+			},
+			{
+				"name": "Business_Identity_Code",
+				"type": "String"
+			},
+			{
+				"name": "Selection_Code",
+				"type": "String"
+			},
+			{
+				"name": "Phone_No_2",
+				"type": "String"
+			},
+			{
+				"name": "Important_Comment",
+				"type": "Boolean"
+			},
+			{
+				"name": "Concern_Code",
+				"type": "String"
+			},
+			{
+				"name": "Send_Invoices_Via_Itella",
+				"type": "Boolean"
+			},
+			{
+				"name": "Send_Invoices_info_To_NS4",
+				"type": "Boolean"
+			},
+			{
+				"name": "First_Selling_Date",
+				"type": "DateTime"
+			},
+			{
+				"name": "Invoice_Printing_Template",
+				"type": "String"
+			},
+			{
+				"name": "Customer_Type",
+				"type": "String"
+			},
+			{
+				"name": "Send_invoices_Via_Email",
+				"type": "Boolean"
+			},
+			{
+				"name": "Only_one_invoice_for_one_email",
+				"type": "Boolean"
+			},
+			{
+				"name": "EDI_Code",
+				"type": "String"
+			},
+			{
+				"name": "Finvoice_Enabled",
+				"type": "Boolean"
+			},
+			{
+				"name": "Customer_Bank_Account",
+				"type": "String"
+			},
+			{
+				"name": "NS4_Currency_Code",
+				"type": "String"
+			},
+			{
+				"name": "Invoice_Posting_Type",
+				"type": "String"
+			},
+			{
+				"name": "Invoice_Sending_Type",
+				"type": "String"
+			},
+			{
+				"name": "Party_Identifier",
+				"type": "String"
+			},
+			{
+				"name": "Intermediator_Code",
+				"type": "String"
+			},
+			{
+				"name": "DateTime",
+				"type": "DateTime"
+			},
+			{
+				"name": "ETag",
+				"type": "String"
+			}
+		],
+		"typeProperties": {
+			"path": "NAVcustomer"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
