@@ -1,0 +1,72 @@
+{
+	"name": "CRMTemporaryBLOB_JSON",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DataFactoryStagingBLOBStorage",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "CRM Extract"
+		},
+		"annotations": [],
+		"type": "AzureBlob",
+		"typeProperties": {
+			"format": {
+				"type": "JsonFormat",
+				"filePattern": "setOfObjects",
+				"jsonPathDefinition": {
+					"source": "$.['source']",
+					"entitytype": "$.['entitytype']",
+					"entitytime": "$.['entitytime']",
+					"businessunit.id": "$.['businessunit']['id']",
+					"businessunit.name": "$.['businessunit']['name']",
+					"entity.BasicInformation.guid": "$.['entity']['BasicInformation']['guid']",
+					"entity.BasicInformation.LegalName": "$.['entity']['BasicInformation']['LegalName']",
+					"entity.BasicInformation.InternalNickname": "$.['entity']['BasicInformation']['InternalNickname']",
+					"entity.BasicInformation.CompanyCode": "$.['entity']['BasicInformation']['CompanyCode']",
+					"entity.BasicInformation.PurchasingStatus": "$.['entity']['BasicInformation']['PurchasingStatus']",
+					"entity.BasicInformation.AccountTypes": "$.['entity']['BasicInformation']['AccountTypes']",
+					"entity.BasicInformation.Telephone": "$.['entity']['BasicInformation']['Telephone']",
+					"entity.BasicInformation.Rmpmid": "$.['entity']['BasicInformation']['Rmpmid']",
+					"entity.VisitingAddress.Street1": "$.['entity']['VisitingAddress']['Street1']",
+					"entity.VisitingAddress.Street2": "$.['entity']['VisitingAddress']['Street2']",
+					"entity.VisitingAddress.ZipCode": "$.['entity']['VisitingAddress']['ZipCode']",
+					"entity.VisitingAddress.City": "$.['entity']['VisitingAddress']['City']",
+					"entity.PostalAddress.Street1": "$.['entity']['PostalAddress']['Street1']",
+					"entity.PostalAddress.Street2": "$.['entity']['PostalAddress']['Street2']",
+					"entity.PostalAddress.ZipCode": "$.['entity']['PostalAddress']['ZipCode']",
+					"entity.PostalAddress.City": "$.['entity']['PostalAddress']['City']",
+					"entity.Preferences.CrmIntegrationId": "$.['entity']['Preferences']['CrmIntegrationId']",
+					"entity.Preferences.SynchronizedWithNS4": "$.['entity']['Preferences']['SynchronizedWithNS4']",
+					"entity.BasicInformation.Owner.id": "$.['entity']['BasicInformation']['Owner']['id']",
+					"entity.BasicInformation.Owner.name": "$.['entity']['BasicInformation']['Owner']['name']",
+					"entity.BasicInformation.BusinessUnitCountry.id": "$.['entity']['BasicInformation']['BusinessUnitCountry']['id']",
+					"entity.BasicInformation.BusinessUnitCountry.name": "$.['entity']['BasicInformation']['BusinessUnitCountry']['name']",
+					"entity.BasicInformation.AccountStatus.id": "$.['entity']['BasicInformation']['AccountStatus']['id']",
+					"entity.BasicInformation.AccountStatus.name": "$.['entity']['BasicInformation']['AccountStatus']['name']",
+					"entity.BasicInformation.Classification.id": "$.['entity']['BasicInformation']['Classification']['id']",
+					"entity.BasicInformation.Classification.name": "$.['entity']['BasicInformation']['Classification']['name']",
+					"entity.BasicInformation.RemarketingClassification.id": "$.['entity']['BasicInformation']['RemarketingClassification']['id']",
+					"entity.BasicInformation.RemarketingClassification.name": "$.['entity']['BasicInformation']['RemarketingClassification']['name']",
+					"entity.BasicInformation.TypeOfAccount.id": "$.['entity']['BasicInformation']['TypeOfAccount']['id']",
+					"entity.BasicInformation.TypeOfAccount.name": "$.['entity']['BasicInformation']['TypeOfAccount']['name']",
+					"entity.BasicInformation.ParentAccount.id": "$.['entity']['BasicInformation']['ParentAccount']['id']",
+					"entity.BasicInformation.ParentAccount.name": "$.['entity']['BasicInformation']['ParentAccount']['name']",
+					"entity.BasicInformation.StateCode.id": "$.['entity']['BasicInformation']['StateCode']['id']",
+					"entity.BasicInformation.StateCode.name": "$.['entity']['BasicInformation']['StateCode']['name']",
+					"entity.VisitingAddress.Country.CountryId": "$.['entity']['VisitingAddress']['Country']['CountryId']",
+					"entity.VisitingAddress.Country.CountryName": "$.['entity']['VisitingAddress']['Country']['CountryName']",
+					"entity.PostalAddress.Country.CountryId": "$.['entity']['PostalAddress']['Country']['CountryId']",
+					"entity.PostalAddress.Country.CountryName": "$.['entity']['PostalAddress']['Country']['CountryName']",
+					"entity.Preferences.Currency.id": "$.['entity']['Preferences']['Currency']['id']",
+					"entity.Preferences.Currency.name": "$.['entity']['Preferences']['Currency']['name']",
+					"entity.Preferences.EcrBusinessUnit.id": "$.['entity']['Preferences']['EcrBusinessUnit']['id']",
+					"entity.Preferences.EcrBusinessUnit.name": "$.['entity']['Preferences']['EcrBusinessUnit']['name']"
+				}
+			},
+			"fileName": "",
+			"folderPath": "crm-dataexport"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

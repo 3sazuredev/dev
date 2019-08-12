@@ -1,0 +1,147 @@
+{
+	"name": "NAVPurchaseInvoiceHeader",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEachCompany",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Set ToDateTime",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Set FromDateTime",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.Company",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "CopyDataNAV",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "RelationalSource",
+									"query": {
+										"value": "@concat('$filter=DateTime ge datetime''',formatDateTime(variables('FromDateTime')),''' and DateTime lt datetime''',formatDateTime(variables('ToDateTime')),'''&company=',item(),'&$select=',variables('Columns'))",
+										"type": "Expression"
+									}
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".csv"
+									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "ODataNAVPurchaseInvoiceHeader",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DataLakeStoreRaw",
+									"type": "DatasetReference"
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"name": "Set ToDateTime",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "ToDateTime",
+					"value": {
+						"value": "@if(empty(pipeline().parameters.ToDateTime),utcnow(),pipeline().parameters.ToDateTime)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set FromDateTime",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "FromDateTime",
+					"value": {
+						"value": "@if(empty(pipeline().parameters.FromDateTime),addMinutes(utcnow(),int(variables('OffSetMinutes'))),pipeline().parameters.FromDateTime)",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"Company": {
+				"type": "array",
+				"defaultValue": [
+					"3StepIT_TEST",
+					"CRONUS Finland Oy"
+				]
+			},
+			"ToDateTime": {
+				"type": "string"
+			},
+			"FromDateTime": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"ToDateTime": {
+				"type": "String"
+			},
+			"FromDateTime": {
+				"type": "String"
+			},
+			"OffSetMinutes": {
+				"type": "String",
+				"defaultValue": "-70"
+			},
+			"Entity": {
+				"type": "String",
+				"defaultValue": "PurchaseInvoiceHeader"
+			},
+			"Columns": {
+				"type": "String",
+				"defaultValue": "*"
+			}
+		},
+		"folder": {
+			"name": "NAV Extract"
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

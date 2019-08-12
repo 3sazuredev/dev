@@ -1,0 +1,41 @@
+{
+	"name": "ERP Extract",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "NS4AllEntities",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"Entity": [
+						"NS4COMPANY",
+						"NS4BUSINESSUNIT",
+						"NS4CONTRACT"
+					],
+					"ToDateTime": "1900-01-01",
+					"FromDateTime": "1900-01-01"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2019-07-03T01:38:00Z",
+				"timeZone": "UTC",
+				"schedule": {
+					"minutes": [
+						15
+					],
+					"hours": [
+						2
+					]
+				}
+			}
+		}
+	}
+}

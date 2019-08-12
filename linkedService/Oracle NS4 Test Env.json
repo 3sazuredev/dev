@@ -1,0 +1,23 @@
+{
+	"name": "Oracle NS4 Test Env",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "Oracle",
+		"typeProperties": {
+			"connectionString": "host=thunderbolt.3stepit.com;port=1521;serviceName=parmas;user id=dataplatformerpuser",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "AzureKeyVaultDev",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "NS4DevPass"
+			}
+		},
+		"connectVia": {
+			"referenceName": "ReportingDataFactoryIR",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

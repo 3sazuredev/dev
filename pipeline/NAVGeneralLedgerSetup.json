@@ -1,0 +1,92 @@
+{
+	"name": "NAVGeneralLedgerSetup",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEachCompany",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.Company",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "CopyDataNAV",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "RelationalSource",
+									"query": {
+										"value": "@concat('company=',item(),'&$select=',variables('Columns'))",
+										"type": "Expression"
+									}
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".csv"
+									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "ODataNAVGeneralLedgerSetup",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DataLakeStoreRaw",
+									"type": "DatasetReference"
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"Company": {
+				"type": "array",
+				"defaultValue": [
+					"3StepIT_TEST",
+					"CRONUS Finland Oy"
+				]
+			}
+		},
+		"variables": {
+			"Entity": {
+				"type": "String",
+				"defaultValue": "GeneralLedgerSetup"
+			},
+			"Columns": {
+				"type": "String",
+				"defaultValue": "Primary_Key,Allow_Posting_From,Allow_Posting_To,Register_Time,Pmt_Disc_Excl_VAT,Global_Dimension_1_Filter,Global_Dimension_2_Filter,Cust_Balances_Due,Vendor_Balances_Due,Unrealized_VAT,Adjust_for_Payment_Disc,Mark_Cr_Memos_as_Corrections,Local_Address_Format,Inv_Rounding_Precision_LCY,Inv_Rounding_Type_LCY,Local_Cont_Addr_Format,Bank_Account_Nos,Summarize_G_L_Entries,Amount_Decimal_Places,Unit_Amount_Decimal_Places,Additional_Reporting_Currency,VAT_Tolerance_Percent,EMU_Currency,LCY_Code,VAT_Exchange_Rate_Adjustment,Amount_Rounding_Precision,Unit_Amount_Rounding_Precision,Appln_Rounding_Precision,Global_Dimension_1_Code,Global_Dimension_2_Code,Shortcut_Dimension_1_Code,Shortcut_Dimension_2_Code,Shortcut_Dimension_3_Code,Shortcut_Dimension_4_Code,Shortcut_Dimension_5_Code,Shortcut_Dimension_6_Code,Shortcut_Dimension_7_Code,Shortcut_Dimension_8_Code,Max_VAT_Difference_Allowed,VAT_Rounding_Type,Pmt_Disc_Tolerance_Posting,Payment_Discount_Grace_Period,Payment_Tolerance_Percent,Max_Payment_Tolerance_Amount,Adapt_Main_Menu_to_Permissions,Allow_G_L_Acc_Deletion_Before,Check_G_L_Account_Usage,Payment_Tolerance_Posting,Pmt_Disc_Tolerance_Warning,Payment_Tolerance_Warning,Last_IC_Transaction_No,Bill_to_Sell_to_VAT_Calc,Print_VAT_specification_in_LCY,Prepayment_Unrealized_VAT,Use_Legacy_G_L_Entry_Locking,Payroll_Trans_Import_Format,VAT_Reg_No_Validation_URL,Shortcut_Dimension_9_Code,Shortcut_Dimension_10_Code,Shortcut_Dimension_11_Code,Shortcut_Dimension_12_Code,Shortcut_Dimension_13_Code,Shortcut_Dimension_14_Code,Shortcut_Dimension_15_Code,Shortcut_Dimension_16_Code,Shortcut_Dimension_17_Code,Shortcut_Dimension_18_Code,Shortcut_Dimension_19_Code,Shortcut_Dimension_20_Code,ETag"
+			}
+		},
+		"folder": {
+			"name": "NAV Extract"
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

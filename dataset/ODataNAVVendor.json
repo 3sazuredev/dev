@@ -1,0 +1,18 @@
+{
+	"name": "ODataNAVVendor",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "OData1",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "NAV Extract"
+		},
+		"annotations": [],
+		"type": "ODataResource",
+		"typeProperties": {
+			"path": "NAVvendor"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

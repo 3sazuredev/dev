@@ -1,0 +1,40 @@
+{
+	"name": "TestCustomer",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "NAVCustomer",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"Company": [
+						"3StepIT_TEST",
+						"CRONUS Finland Oy"
+					],
+					"ToDateTime": "2019-06-30",
+					"FromDateTime": "2016-01-01"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2019-06-26T10:52:00Z",
+				"timeZone": "UTC",
+				"schedule": {
+					"minutes": [
+						0
+					],
+					"hours": [
+						3
+					]
+				}
+			}
+		}
+	}
+}

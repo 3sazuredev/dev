@@ -1,0 +1,22 @@
+{
+	"name": "DataLakeStoreRawCRM_JSON",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "CRM Extract"
+		},
+		"annotations": [],
+		"type": "AzureBlobFSFile",
+		"typeProperties": {
+			"format": {
+				"type": "JsonFormat"
+			},
+			"fileName": "",
+			"folderPath": "raw/CRM/Account/JSON"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

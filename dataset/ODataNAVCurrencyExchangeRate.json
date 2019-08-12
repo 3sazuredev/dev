@@ -1,0 +1,18 @@
+{
+	"name": "ODataNAVCurrencyExchangeRate",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "OData NAV Dev Env",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "NAV Extract"
+		},
+		"annotations": [],
+		"type": "ODataResource",
+		"typeProperties": {
+			"path": "NAVcurrencyExchangeRate"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

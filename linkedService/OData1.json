@@ -1,0 +1,19 @@
+{
+	"name": "OData1",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "testing odata",
+		"annotations": [],
+		"type": "OData",
+		"typeProperties": {
+			"url": "http://vampire.3stepit.com:7048/NAV_TEST/OData/",
+			"authenticationType": "Windows",
+			"userName": "NAVSERVICE",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJiODY3NDU3Yi1mMDcxLTRhZDYtOTJkMC1hZDA3YWEzODEzMDAiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "ReportingDataFactoryIR",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

@@ -1,0 +1,39 @@
+{
+	"name": "NAV Daily Extract",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "NAV Daily Extract Wrapper",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"WrapperOffSetMinutes": -1500,
+					"WrapperCompanies": [
+						"3StepIT_TEST",
+						"CRONUS Finland Oy"
+					]
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2019-07-03T05:02:00Z",
+				"timeZone": "UTC",
+				"schedule": {
+					"minutes": [
+						30
+					],
+					"hours": [
+						2
+					]
+				}
+			}
+		}
+	}
+}

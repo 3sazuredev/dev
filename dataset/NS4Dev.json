@@ -1,0 +1,15 @@
+{
+	"name": "NS4Dev",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle NS4 Dev Env",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "ERP Extract"
+		},
+		"annotations": [],
+		"type": "OracleTable"
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

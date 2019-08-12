@@ -1,0 +1,20 @@
+{
+	"name": "NAV2016RestTest",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "Test NAV2016 server OData rest interface in equinix",
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "http://vampire.3stepit.com:7048/NAV_TEST/OData/",
+			"enableServerCertificateValidation": false,
+			"authenticationType": "Basic",
+			"userName": "RENTAL\\\\NAVSERVICE",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJlMjA1OGViMS02YWYzLTQyOWYtODdmZS1iNmZhNDdjNmFjYzUiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "ReportingDataFactoryIR",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
